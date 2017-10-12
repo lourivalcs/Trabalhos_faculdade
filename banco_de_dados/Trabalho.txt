@@ -1,0 +1,18 @@
+1 - Criar o Modelo ER Vendedor \ Cliente (Um vendedor atende muitos clientes. Porém, cada cliente
+tem um vendedor específico.) Adicionar os atributos na modelagem
+
+2 - Criar as tabelas no banco de dados físico (Mínimo 10 Campos por tabela)
+Ex: Status(1,2,3)\sexo(0,1)\ Data Cadastro\Data Desativação\UF...
+
+3 - Criar as procedures de Insert\Update\Delete Gerar o comando para inserir 5 registros Gerar o
+comando para deletar 2 Registros Gerar o comando para Atualizar 2 Registros (Em campos editáveis)
+
+4 - Criar uma View trazendo informações do vendedor e clientes valores Booleanos 
+(Ex: Status = Ativo\Inativo\Cancelado\ - Documentar na view o DE-> PARA dos valores.
+
+5 - Criar uma Trigger para auditoria das tabelas envolvidas (Salvando as auditorias em UMA tabela de
+Auditoria)
+
+6 – Check Constraint para os campos booleanos.
+
+7 - Criar trigger de validação UF.
