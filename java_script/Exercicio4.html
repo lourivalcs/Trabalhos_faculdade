@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Exercicio 4</title> 
+		<style>
+			ul li {
+				list-style-type: none;
+			}
+			ul li label{
+			    width: 150px;
+				display: inline-block;
+				padding: 5px;
+			}
+			table {border-collapse: collapse;}
+			table tr td{
+				border:1px solid;
+				width:100px;
+				text-align:center;
+			}
+			table thead{
+				font-weight: bold;
+			}
+			.acao{
+				font-style: italic;
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			var aCarros = new Array();
+			var ids = 0;
+			function liberarBotao(){
+				var inputs = document.getElementsByTagName('input');
+				var cond = true;
+				for(var i=1; i< inputs.length; i++)
+				{
+					if(inputs[i].value.trim() == ""){
+						cond = false;
+					}
+				}
+
+				if(document.getElementById('Combustivel').selectedIndex == 0)
+					cond = false;
+
+				if(cond)
+					document.getElementById("btn").disabled = false;
+			};
+			
+			function buscaDadosForm(){
+				var inputs = document.getElementsByTagName('input');
+				
+				var oCarro = {};
+				for(var i=0; i < inputs.length; i++){
+					oCarro[inputs[i].id] = inputs[i].value.trim();
+				}
+				oCarro["Combustivel"] = document.getElementById('Combustivel').value;
+				return oCarro;
+			}
+			
+			function salvar(){
+				var oCarro = buscaDadosForm();
+				if(oCarro.idRegistro == ""){
+					oCarro.idRegistro = ++ids;
+					aCarros.push(oCarro);
+					insereCarroTabela(oCarro,0);
+				}else{
+					for(var i=0; i< aCarros.length; i++){
+						if(aCarros[i].idRegistro == oCarro.idRegistro){
+							aCarros[i] = oCarro;
+							document.getElementById('bodyTable').deleteRow(i);
+							insereCarroTabela(oCarro,i);
+							break;
+						}
+					}	
+				}
+
+				var sCarro = JSON.stringify(oCarro);
+				console.info(sCarro);
+				exibirArray();
+				limpaCampos();
+			}
+
+			function limpaCampos(){
+				var inputs = document.getElementsByTagName('input');
+				for(var j=0; j < inputs.length; j++){
+					inputs[j].value = "";
+				}
+				document.getElementById('Combustivel').selectedIndex = 0;
+				document.getElementById('btn').disabled = true;				
+			}
+
+			function exibirArray(){
+				var texto;
+				if(aCarros.length == 0)
+					texto = 'Não existem dados no array';
+				else
+					texto = JSON.stringify(aCarros);
+
+				document.getElementById('divJson').innerText = texto;
+			}
+
+			function insereCarroTabela(oCarro, linha){
+				var bodyTable = document.getElementById('bodyTable');
+				var tr;
+				if(linha == 0)
+					tr = document.createElement('tr');
+				else{
+					tr = bodyTable.insertRow(linha);
+				}
+
+				tr.appendChild(criaTds(oCarro.idRegistro));
+				tr.appendChild(criaTds(oCarro.Fabricante));
+				tr.appendChild(criaTds(oCarro.Ano));
+				tr.appendChild(criaTds(oCarro.Modelo));
+				tr.appendChild(criaTds(oCarro.Portas));
+				tr.appendChild(criaTds(oCarro.Potencia));
+				tr.appendChild(criaTds(oCarro.Combustivel));
+				
+				tr.appendChild(criaLink(criaTds('Editar'), oCarro.idRegistro, 'Editar'));
+				tr.appendChild(criaLink(criaTds('Remover'), oCarro.idRegistro, 'Remover'));
+
+				if(linha == 0)
+					bodyTable.appendChild(tr);
+			}
+			
+			function criaTds(texto){
+				var td = document.createElement('td');
+				td.innerText = texto;
+				return td;
+			}
+			
+			function acaoEditar(id){
+				for(var i=0; i < aCarros.length; i++){
+					if(aCarros[i].idRegistro == id){
+						var inputs = document.getElementsByTagName('input');
+						var keys = Object.keys(aCarros[i]);
+						for(var k=0; k < keys.length; k++){
+							for(var j=0; j < inputs.length; j++){
+								if(inputs[j].id == keys[k]){
+									inputs[j].value = aCarros[i][keys[k]];
+									break;
+								}
+							}
+						}
+						document.getElementById('Combustivel').value = aCarros[i].Combustivel;
+					}
+				}
+			}
+			
+			function acaoRemover(id){
+				for(var i=0; i< aCarros.length; i++){
+					if(aCarros[i].idRegistro == id){
+						aCarros.splice(i,1);
+						document.getElementById('bodyTable').deleteRow(i);
+						exibirArray();
+						limpaCampos();
+						break;
+					}
+				}				
+			}
+
+			function criaLink(elemento, idRegistro, nome){
+				var evento = function(){
+					if(nome == 'Editar'){
+						return acaoEditar(idRegistro);
+					}
+					else
+						return acaoRemover(idRegistro);
+				}
+				elemento.className='acao';
+				elemento.addEventListener('click', evento, true);
+				return elemento;
+			}
+		</script>
+	</head>
+<body>
+	<h1>Exercicio 4</h1>
+	<div id="divJson">
+
+	</div>
+	<form>
+		<ul>
+			<li>
+				<label for="idCarro">ID Registro</label>
+				<input type="text" id="idRegistro" readonly>
+			</li>			
+			<li>
+				<label for="Fabricante">Fabricante</label>
+				<input type="text" id="Fabricante" onblur="liberarBotao()">
+			</li>
+			<li>			
+				<label for="Ano">Ano</label>
+				<input type="text" id="Ano" onblur="liberarBotao()">
+			</li>				
+			<li>
+				<label for="Modelo">Modelo</label>
+				<input type="text" id="Modelo" onblur="liberarBotao()">
+			</li>	
+			<li>
+				<label for="Portas">Portas</label>
+				<input type="text" id="Portas" onblur="liberarBotao()">
+			</li>
+			<li>	
+				<label for="Potencia">Potência</label>
+				<input type="text" id="Potencia" onblur="liberarBotao()">
+			</li>
+			<li>
+				<label for="Combustivel">Tipo de combustível</label>
+				<select id="Combustivel" onchange="liberarBotao()">
+					<option>Selecione uma opção</option>
+					<option value="Gasolina">Gasolina</option>
+					<option value="Diesel">Diesel</option>
+					<option value="Elétrico">Elétrico</option>
+					<option value="Alcool">Alcool</option>
+					<option value="Flex">Flex</option>
+				</select>
+			</li>	
+			<li>
+				<button type="button" id="btn" disabled onclick="salvar()">Salvar</button>
+			</li>
+		</ul>
+	</form>
+		<table>
+			<thead>
+				<tr>
+					<td>ID Registro</td>
+					<td>Fabricante</td>
+					<td>Ano</td>
+					<td>modelo</td>
+					<td>Portas</td>
+					<td>Potencia</td>
+					<td>Combustivel</td>
+					<td colspan="2">Ação</td>
+				</tr>
+			</thead>
+			<tbody id="bodyTable">
+			</tbody>
+		</table>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Exercicio 1</title> 		
+	</head>
+<body>
+	<h1>Exercicio 1</h1>
+	
+	<button onclick="gerar();">Gerar</button>
+	
+	<script type="text/javascript">
+		
+		function gerar(){
+			var json = {};
+			var url = "http://www.portoalegrelivre.com.br/php/services/WSPoaLivreRedes.php";
+			
+			var httpRequest;
+			if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+				httpRequest = new XMLHttpRequest();
+			} else if (window.ActiveXObject) { // IE 8 and older
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			httpRequest.open("GET", url, true);
+			
+			httpRequest.onreadystatechange = function(){
+				console.log(httpRequest.readyState);
+				if(httpRequest.readyState == 4 && httpRequest.status == 200){
+					json = JSON.parse(httpRequest.responseText);
+					json.forEach(function(a){
+									console.info("---------------------------------------------------");
+									console.info("Empresa: " + a.Empresa),
+									console.info("Nome Rede: " + a.NomeRede),								
+									console.info("Longitude: " + a.Longitude),
+									console.info("Latitude: " + a.Latitude)
+									console.info("---------------------------------------------------");
+								});
+				}
+			};
+
+			httpRequest.send();
+			console.log();
+		}
+		
+	</script>
+</body>
+</html>
