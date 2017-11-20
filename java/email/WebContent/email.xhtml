@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>E-mail</title>
+</h:head>
+<h:body>
+	<ui:composition template="_templateEmail.xhtml">
+		<ui:define name="conteudo">
+			<div class="col-xs-3 col-md-2">
+				<div class="opcoes-email">
+					<ul class="nav nav-pills nav-stacked">
+						<li id="btnNew">
+							<a href="#" styleClass="botoesMenu" data-toggle="modal" data-target="#modalEmail" onclick="novoEmail();">Novo E-mail						
+							</a>
+							
+						</li>
+						<li id="btnCN">
+							<h:form prependId="false" styleClass="menuBTNs">
+								<h:commandLink styleClass="botoesMenu" action="#{emailBean.alteraTipoEmail(2)}" value="Caixa de Entrada "><h:outputLabel styleClass="badge" value="#{emailBean.qtdLido}" />							
+								</h:commandLink>
+							</h:form>
+						</li>
+						<li id="btnEN">
+							<h:form prependId="false" styleClass="menuBTNs">
+								<h:commandLink styleClass="botoesMenu" action="#{emailBean.alteraTipoEmail(1)}" value="Enviados">							
+								</h:commandLink>
+							</h:form>
+						</li>
+						<li id="btnCT">
+							<h:form prependId="false" styleClass="menuBTNs">
+								<h:commandLink styleClass="botoesMenu" value="Contatos">								
+								</h:commandLink>
+							</h:form>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="col-xs-9 col-md-9">
+				<h:dataTable value="#{emailBean.emails}" var="email" id="tabelaEmails" styleClass="table table-striped">
+						<h:column>
+							<f:passThroughAttribute name="class" value="iconeEmail" />
+								<button type="button" data-toggle="modal" data-target="#modalEmail" onclick="responder(#{email.idEmail});" >
+									<span class="glyphicon glyphicon-arrow-right"></span>								
+								</button>
+						</h:column>
+						<h:column>
+							<f:passThroughAttribute name="class" value="iconeEmail" />
+								<button type="button" data-toggle="modal" data-target="#modalEmail" onclick="encaminhar(#{email.idEmail});">
+									<span class="glyphicon glyphicon-share-alt"></span>
+								</button>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Assunto</f:facet>
+							<h:outputText value="#{email.assunto}" styleClass="assunto#{email.idEmail}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Texto</f:facet>
+							<h:outputText value="#{email.texto}" styleClass="texto#{email.idEmail}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Data</f:facet>
+							<h:outputText value="#{email.dataEnvio}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:passThroughAttribute name="class" value="iconeEmail" />
+								<h:form prependId="false">
+									<h:commandLink action="#{emailBean.apagarEmail(email.idEmail)}">							
+										<span class="glyphicon glyphicon-remove"></span>
+									</h:commandLink>
+								</h:form>
+								
+						</h:column>
+				</h:dataTable>
+			</div>
+			
+			<div class="col-md-1">
+			</div>		
+		
+			<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+				  <div class="modal-content">
+				    <div class="modal-header">
+				      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				      <h4 class="modal-title" id="modalTitle"></h4>
+				    </div>
+				    <h:form prependId="false">
+				    	<h:inputHidden id="IDemailForm" value="0"/>
+					    <div class="modal-body">
+					        <div class="form-group">
+					          <h:outputLabel for="enviarParaSelect" class="control-label">Para:</h:outputLabel>
+					          <h:selectManyListbox id="enviarParaSelect" styleClass="select2" style="width: 100%" multiple="multiple" value="#{emailBean.email.idUsuarioEmails}" >
+						          <f:selectItems value="#{emailBean.users}" var="usuario" itemValue="#{usuario.idUsuario}" itemLabel="#{usuario.login}" />
+					          </h:selectManyListbox>
+					          <h:message styleClass="label label-danger" for="enviarParaSelect" id="mensagemPara" />
+					        </div>
+					        <div class="form-group">
+					          <label for="txt-assunto" class="control-label">Assunto:</label>
+					          <h:inputText styleClass="form-control" id="txt-assunto" name="assunto" value="#{emailBean.email.assunto}"/>
+					        </div>
+					        <div class="form-group">
+					          <label for="tx-texto" class="control-label">Texto:</label>
+					          <h:inputTextarea styleClass="form-control" id="tx-texto" name="textoEmail" value="#{emailBean.email.texto}"/>
+					        </div>
+					    </div>
+					    <div class="modal-footer">
+					      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					      <h:commandButton class="btn btn-primary" value="Enviar" action="#{emailBean.enviar}"></h:commandButton>
+					    </div>
+				    </h:form>
+				  </div>
+				</div>
+			</div>
+			
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

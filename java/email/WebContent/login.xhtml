@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<title>Login e-mail</title>
+</h:head>
+<h:body>
+	<ui:composition template="_templateEmail.xhtml">
+		<ui:define name="conteudo">
+			<div class="container-fluid">
+				<div class="row topo" />
+				<div class="row">
+					<div class="col-xs-1 col-md-5"/>
+						<div class="col-xs-10 col-md-2">
+							<h:form prependId="false">
+								<h:messages styleClass="mensagemLogin" globalOnly="true" infoClass="alert alert-danger glyphicon glyphicon-exclamation-sign"/>
+								<div class="form-group">
+									<div class="row">
+										<h:outputLabel for="login">Login:</h:outputLabel>
+										<h:inputText styleClass="form-control" id="login" value="#{loginBean.usuario.login}" required="true" requiredMessage="Obrigatório informar o login"/>						
+										<h:message styleClass="label label-danger" for="login" id="mensagemLogin" />
+									</div>
+									<div class="row">
+										<h:outputLabel for="senha">Senha:</h:outputLabel>
+										<h:inputSecret styleClass="form-control" id="senha" value="#{loginBean.usuario.senha}" required="true" requiredMessage="Obrigatório informar a senha"/>						
+										<h:message styleClass="label label-danger" for="senha" id="mensagemSenha" />
+									</div>
+								</div>
+								<div class="row">
+									<h:commandButton class="btn btn-primary" value="Logar" action="#{loginBean.logar}"></h:commandButton>
+									<button type="button" class="btn btn-default novaConta" data-toggle="modal" data-target="#modalNovaConta">Nova Conta</button>
+								</div>
+							</h:form>
+						</div>
+					<div class="col-xs-1 col-md-5"/>			
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

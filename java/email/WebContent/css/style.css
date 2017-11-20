@@ -1,0 +1,111 @@
+.topo{
+	margin-top: 15%;
+}
+.mensagemLogin{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+
+.mensagemLogin > li{
+	list-style: none;
+	width: 100%;	
+}
+
+#cabecalho{
+	
+}
+
+.logotipo{
+	color: #2e6da4;
+	font-size: 60px;
+	margin-left: 1%;
+	margin-top: 1%;
+}
+
+.usuario{
+	float: right;
+    margin-top: 2.5%;
+}
+
+.menuUsuario{
+	width: 100%
+}
+
+.opcoes-email{
+	margin-top: 15%;
+}
+
+.opcoes-email > ul > li{
+    margin-bottom: 5%;
+}
+
+.iconeEmail{
+	width: 3%;
+}
+
+.iconeEmail > label, .iconeEmail > span{
+	cursor: pointer;
+}
+
+.iconeEmail .glyphicon{
+	font-size: 24px;
+}
+
+.iconeEmail > button{
+	border-style: none;
+    background-color: transparent;
+}
+
+#modalEmail textarea.form-control {
+	height: 500px;
+}
+
+.novaConta {
+	float: right;
+}
+
+.botaoConfigurar{
+    padding: 3px 20px;
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    border-style: none;;
+}
+
+.botaoConfigurar:hover{
+	background-color: #e8e8e8;
+    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    background-repeat: repeat-x;
+}
+
+.nomeUsuario{
+	min-width: 160px;	
+}
+
+.botoesMenu{
+	width: 100%;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+}
+
+.botoesMenu:hover{
+	background-color: #eee;
+	text-decoration: none;
+}
+
+.menuBTNs>a{
+	position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.menuBTNs>a:hover{
+	width: 100%;
+    display: block;
+    border-radius: 4px;
+}
+
+
+
+
