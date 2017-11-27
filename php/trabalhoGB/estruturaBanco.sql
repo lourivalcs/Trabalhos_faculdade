@@ -7,8 +7,10 @@ idTipoUsuario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 descricao VARCHAR(200)
 );
 
+INSERT INTO TipoUsuario (descricao) VALUES ("Cliente"),("Funcionario");
+
 CREATE TABLE Usuario(
-idUsuario INT PRIMARY KEY NOT NULL,
+idUsuario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 idTipoUsuario INT NOT NULL,
 nome VARCHAR(200),
 login VARCHAR(200),

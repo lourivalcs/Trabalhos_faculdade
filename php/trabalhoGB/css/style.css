@@ -1,3 +1,58 @@
 .topo{
 	margin-top: 15%;
 }
+
+.novaConta {
+	float: right;
+}
+
+.usuario{
+	float: right;
+    margin-top: 2.5%;
+}
+
+.menuUsuario{
+	width: 100%
+}
+
+.nomeUsuario{
+	min-width: 160px;	
+}
+
+.botaoConfigurar{
+    padding: 3px 20px;
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    border-style: none;;
+}
+
+.botaoConfigurar:hover{
+	background-color: #e8e8e8;
+    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+    background-repeat: repeat-x;
+}
+
+#menu-lateral, #veiculo, #marca, #aluguel, #csv{
+    margin-top: 5%;
+}
+
+#marca, #aluguel, #csv{
+    display: none;
+}
+
+.pesquisar{
+    font-size: 28px;
+    top: 10px;
+}
+
+.btnAdicionar{
+    font-size: 25px;
+    top: 6px;
+    border: none;
+    background: none;
+}
+
+.botoes{
+    float: right;    
+}
